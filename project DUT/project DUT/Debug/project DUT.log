@@ -1,0 +1,32 @@
+﻿  AssetLoader.cpp
+c:\users\arnau\documents\project dut\project dut\parser.h(22): warning C4091: 'typedef ': ignored on left of 'currentBlockInfo' when no variable is declared
+c:\users\arnau\documents\project dut\project dut\parser.h(28): warning C4091: 'typedef ': ignored on left of 'InfoParser' when no variable is declared
+c:\users\arnau\documents\project dut\project dut\parser.h(54): warning C4091: 'typedef ': ignored on left of 'StateInfo' when no variable is declared
+  Button.cpp
+c:\users\arnau\documents\project dut\project dut\parser.h(22): warning C4091: 'typedef ': ignored on left of 'currentBlockInfo' when no variable is declared
+c:\users\arnau\documents\project dut\project dut\parser.h(28): warning C4091: 'typedef ': ignored on left of 'InfoParser' when no variable is declared
+c:\users\arnau\documents\project dut\project dut\parser.h(54): warning C4091: 'typedef ': ignored on left of 'StateInfo' when no variable is declared
+  Menu.cpp
+c:\users\arnau\documents\project dut\project dut\parser.h(22): warning C4091: 'typedef ': ignored on left of 'currentBlockInfo' when no variable is declared
+c:\users\arnau\documents\project dut\project dut\parser.h(28): warning C4091: 'typedef ': ignored on left of 'InfoParser' when no variable is declared
+c:\users\arnau\documents\project dut\project dut\parser.h(54): warning C4091: 'typedef ': ignored on left of 'StateInfo' when no variable is declared
+  Parser.cpp
+c:\users\arnau\documents\project dut\project dut\parser.h(22): warning C4091: 'typedef ': ignored on left of 'currentBlockInfo' when no variable is declared
+c:\users\arnau\documents\project dut\project dut\parser.h(28): warning C4091: 'typedef ': ignored on left of 'InfoParser' when no variable is declared
+c:\users\arnau\documents\project dut\project dut\parser.h(54): warning C4091: 'typedef ': ignored on left of 'StateInfo' when no variable is declared
+c:\users\arnau\documents\project dut\project dut\parser.cpp(47): warning C4244: 'initializing': conversion from 'std::streamoff' to 'size_t', possible loss of data
+c:\users\arnau\documents\project dut\project dut\parser.cpp(160): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\arnau\documents\project dut\project dut\parser.cpp(200): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\arnau\documents\project dut\project dut\parser.cpp(201): warning C4244: '=': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\arnau\documents\project dut\project dut\parser.cpp(228): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\arnau\documents\project dut\project dut\parser.cpp(230): warning C4244: 'argument': conversion from 'double' to 'sf::Int32', possible loss of data
+  Generating Code...
+  project DUT.vcxproj -> C:\Users\arnau\Documents\project DUT\Debug\project DUT.exe

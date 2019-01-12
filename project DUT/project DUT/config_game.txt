@@ -1,0 +1,7 @@
+"setting":{
+  "size":{"vector2","1600,900"},
+  "scene_at_start":{"number","0"},
+  "fps":{"number","120"},
+  "name_window":{"string","test!"}
+}
+!
