@@ -4,11 +4,18 @@ Scene::~Scene()
 	//
 }
 
-bool Scene::init(sf::RenderWindow &targetWindow)
+bool Scene::init(sf::RenderWindow &targetWindow, const bool loadAsset)
 {
 	_idNextScene = _idScene;
-	_parserScene.init(_nameScene + ".txt");
-	_assetScene.loadFromParser(_parserScene, _nameScene);
+	if (loadAsset)
+	{
+		_parserScene.init(_nameScene + ".txt");
+		_assetScene.loadFromParser(_parserScene);
+	}
+	sf::Vector2u tmpSizeWindow = targetWindow.getSize();
+	_viewScene.setSize(tmpSizeWindow.x, tmpSizeWindow.y);
+	_viewScene.setCenter(tmpSizeWindow.x / 2, tmpSizeWindow.y / 2);
+	targetWindow.setView(_viewScene);
 	_buttonField.resize(BUTTON::countButton);
 	_axeField.resize(AXE::countAxe);
 	for (unsigned int i = 0; i < sf::Joystick::Count; i++)
@@ -79,6 +86,11 @@ void Scene::setController(const int idController, const int idButton, const bool
 	_buttonField[idController][idButton] = value;
 }
 
+void Scene::setController(const int idController, const int idAxe, const float value)
+{
+	_axeField[idController][idAxe] = value;
+}
+
 void Scene::setController(const int idController, const int idAxe)
 {
 	const float tmp(sf::Joystick::getAxisPosition(idController, sf::Joystick::Axis(idAxe)));
@@ -88,7 +100,6 @@ void Scene::setController(const int idController, const int idAxe)
 void Scene::setMouseField(const sf::Mouse::Button &idButton, const sf::Vector2f &pos)
 {
 	_mouseField[idButton].push_back(t_infoClick(pos, 0.f));
-	std::cout << idButton << "\n";
 }
 
 void Scene::setMousePos(const sf::Vector2f &posMouse)
@@ -107,29 +118,10 @@ void Scene::updateMouse(const float timeElapsed)
 			it->timing += timeElapsed;
 			if (it->timing >= TIME_BUFFER_CLICK)
 			{
-				std::cout << "erased\n";
 				it = _mouseField[i].erase(it);
 			}
 			else
 				it++;
 		}
-	}
-}
-
-namespace vector
-{
-	const float magnitude(const sf::Vector2f &v)
-	{
-		return sqrt((v.x * v.x) + (v.y * v.y));
-	}
-
-	bool normalizeVector(sf::Vector2f & vector)
-	{
-		float m = magnitude(vector);
-		if (!m)
-			return false;
-		vector.x /= m;
-		vector.y /= m;
-		return true;
 	}
 }

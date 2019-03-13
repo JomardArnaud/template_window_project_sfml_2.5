@@ -1,4 +1,9 @@
-"Font":{
-  "buttonHello":{"string","hemi head bd it.ttf"}
+"Asset":{
+	"Font":{
+		"buttonHello":{"string","hemi head bd it.ttf"}
+	},
+	"Audio":{
+		"testOst":{"string","ost.flac"}
+	}
 }
 !

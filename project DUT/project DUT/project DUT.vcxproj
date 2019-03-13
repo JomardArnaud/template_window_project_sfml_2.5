@@ -76,13 +76,13 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\arnau\Desktop\cpp\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\arnau\Desktop\cpp\SFML-2.5.1\include;C:\Users\arnau\Desktop\cpp\New Lib\GainPut\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>C:\Users\arnau\Desktop\cpp\SFML-2.5.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-graphics-s-d.lib;sfml-window-s-d.lib;sfml-system-s-d.lib;opengl32.lib;freetype.lib;winmm.lib;gdi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\arnau\Desktop\cpp\SFML-2.5.1\lib;C:\Users\arnau\Desktop\cpp\New Lib\GainPut\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;sfml-audio-d.lib;gainput-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -144,25 +144,39 @@
     <ClCompile Include="player.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="test.cpp" />
+    <ClCompile Include="Player1Mode.cpp" />
     <ClCompile Include="Utils.cpp" />
-    <ClCompile Include="weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AssetLoader.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Parser.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="Scene.h" />
-    <ClInclude Include="test.h" />
+    <ClInclude Include="Player1Mode.h" />
     <ClInclude Include="Utils.h" />
-    <ClInclude Include="weapon.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="config_game.txt" />
     <Text Include="Menu.txt" />
+    <Text Include="Player1Mode.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="project DUT.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Sounds_Jomard\damage01.flac" />
+    <None Include="Sounds_Jomard\damage02.flac" />
+    <None Include="Sounds_Jomard\die01.flac" />
+    <None Include="Sounds_Jomard\die02.flac" />
+    <None Include="Sounds_Jomard\rifle01.flac" />
+    <None Include="Sounds_Jomard\shotgun01.flac" />
+    <None Include="Sounds_Jomard\shotgun02.flac" />
+    <None Include="Sounds_Jomard\smg01.flac" />
+    <None Include="Sounds_Jomard\smg02.flac" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

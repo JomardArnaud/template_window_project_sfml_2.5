@@ -1,6 +1,6 @@
 #include "Game.h"
 
-Game::Game()
+Game::Game() : _inputMap(_inputManager)
 {
 	//
 }
@@ -15,20 +15,16 @@ void Game::preloadScene()
 {
 	std::srand(std::time(0));
 
-	
 	Menu *scMenu = new Menu();
-	Test *scTest = new Test();
-	Test2 *scTest2 = new Test2();
+	Player1ModeScene *scPlayer1Mode = new Player1ModeScene();
 
 	scMenu->init(_wGame);
-	scTest->init(_wGame);
-	scTest2->init(_wGame);
+	scPlayer1Mode->init(_wGame);
 
 	_allScene.resize(SCENE::countScene);
 
 	_allScene[SCENE::MENU] = scMenu;
-	_allScene[SCENE::TEST] = scTest;
-	_allScene[SCENE::TEST2] = scTest2;
+	_allScene[SCENE::PAYER1MODE] = scPlayer1Mode;
 }
 
 bool Game::init()
@@ -36,19 +32,21 @@ bool Game::init()
 	_game = true;
 
 	ParserSceneInfo tmpSetGame;
-
 	tmpSetGame.init("config_game.txt");
 
-	sf::Vector2i tmp = tmpSetGame.getInfo("setting", "size", sf::Vector2i());
-	_wGame.create(sf::VideoMode(tmp.x, tmp.y), tmpSetGame.getInfo("setting", "name_window", std::string()));
-	//Maybe do a struct t_IdScene consistituée d'un int et d'un string
-	_timer = sf::seconds(1.f / tmpSetGame.getInfo("setting", "fps", int()));
+	sf::Vector2i tmp;
+	tmp = tmpSetGame.setInfo<sf::Vector2i>("windowInfo", "setting", "size");
+	_wGame.create(sf::VideoMode(tmp.x, tmp.y), tmpSetGame.setInfo<std::string>("windowInfo", "setting", "name_window"));
+	_timer = sf::seconds(1.f / tmpSetGame.setInfo<int>("gameInfo", "infoScene", "fps"));
 	preloadScene();
-	_currentIdScene = tmpSetGame.getInfo("setting", "scene_at_start", int());
+	_currentIdScene = tmpSetGame.setInfo<int>("gameInfo", "infoScene", "scene_at_start");
+	_padId = _inputManager.CreateDevice<gainput::InputDevicePad>();
+	_inputMap.MapFloat(0, _padId, gainput::PadButtonAxis4);
+	_inputMap.MapFloat(1, _padId, gainput::PadButtonAxis5);
 	return (_game);
 }
 
-bool Game::loop()
+bool Game::loop()            
 {
 	sf::Event	e;
 
@@ -71,6 +69,9 @@ bool Game::loop()
 
 void Game::event(const sf::Event & event)
 {
+	_inputManager.Update();
+	_inputMap.GetFloatDelta(0);
+
 	switch (event.type)
 	{
 	case sf::Event::Closed:
@@ -101,7 +102,6 @@ void Game::event(const sf::Event & event)
 	default:
 		break;
 	}
-
 	_allScene[_currentIdScene]->setMousePos(sf::Vector2f(sf::Mouse::getPosition(_wGame)));
 }
 

@@ -2,11 +2,12 @@
 class Button;
 
 #define DEAD_ZONE 15.f
-#define TIME_BUFFER_CLICK 0.50F
 
 //INCLUDE NEEDED BY NUMEROUS SCENE
 #include <SFML/Graphics.hpp>
 #include "AssetLoader.h"
+#include "Button.h"
+#include "Utils.h"
 
 enum BUTTON
 {
@@ -23,11 +24,12 @@ enum BUTTON
 	countButton
 };
 
+
 enum AXE
 {
 	LX,
 	LY,
-	T, //NB: For SFML the two trigger use the same idAxe ( = 2) if value is neg is RT pos is for LT
+	LT, //NB: For SFML the two trigger use the same idAxe ( = 2) if value is neg is RT pos is for LT
 	RX = 4,
 	RY,
 	countAxe
@@ -37,33 +39,17 @@ enum SCENE : int
 {
 	//TITLE,
 	MENU,
-	TEST,
-	TEST2,
+	PAYER1MODE,
 	//SCORE,
 	countScene,
 	none = -1
 };
 
-typedef struct s_infoClick
-{
-	s_infoClick() {
-		click = sf::Vector2f(0, 0);
-		timing = 0.f;
-	};
-	s_infoClick(const sf::Vector2f &posClick, const float nTimingClick) {
-		click = posClick;
-		timing = nTimingClick;
-	};
-	~s_infoClick() {};
-	sf::Vector2f click;
-	float timing;
-} t_infoClick;
-
 class Scene
 {
 public:
 	virtual ~Scene();
-	virtual bool init(sf::RenderWindow &targetWindow);
+	virtual bool init(sf::RenderWindow &targetWindow, const bool loadAsset = true);
 
 	//non virtual method
 	void setKeyboard(const int idKey, const bool value); //faut définir la taille event::key::count xD
@@ -71,6 +57,7 @@ public:
 	void setMousePos(const sf::Vector2f &posMouse);
 	void updateMouse(const float timeElapsed);
 	void setController(const int idController, const int idButton, const bool idValue);
+	void setController(const int idController, const int idAxe, const float value);
 	void setController(const int idController, const int idAxe);
 	const std::map<std::string, std::string> & getInfoToNextScene();
 	void setInfoToNextScene(const std::string &key, const std::string &value);
@@ -86,6 +73,7 @@ protected:
 	int _idScene;
 	std::string _nameScene;
 	int _idNextScene;
+	sf::View _viewScene;
 	bool _keyField[sf::Keyboard::KeyCount] = { false };
 	std::map<int, std::vector<t_infoClick> > _mouseField;
 	sf::Vector2f _posMouse;
@@ -97,10 +85,4 @@ protected:
 	void setInfoFromPreviousScene(const std::string &stringValue, int *value);
 	void setInfoFromPreviousScene(const std::string &stringValue, float *value);
 	void setInfoFromPreviousScene(const std::string &stringValue, std::string *value);
-};
-
-namespace vector
-{
-	const float magnitude(const sf::Vector2f &tmpVector);
-	bool normalizeVector(sf::Vector2f &tmpVector);
 };

@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Fichiers de ressources\sound">
+      <UniqueIdentifier>{d97dde5a-fd46-42e7-8056-aac6dda47c7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers de ressources\InfoSceneFile">
+      <UniqueIdentifier>{026b7283-c232-4627-9f04-116283a0d5ff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -24,13 +30,7 @@
     <ClCompile Include="Scene.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="test.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="player.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="weapon.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="Button.cpp">
@@ -46,6 +46,9 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="Utils.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Player1Mode.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -68,25 +71,62 @@
     <ClInclude Include="Scene.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="test.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="weapon.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="AssetLoader.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="Utils.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Player1Mode.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="config_game.txt">
-      <Filter>Fichiers de ressources</Filter>
+      <Filter>Fichiers de ressources\InfoSceneFile</Filter>
     </Text>
     <Text Include="Menu.txt">
-      <Filter>Fichiers de ressources</Filter>
+      <Filter>Fichiers de ressources\InfoSceneFile</Filter>
     </Text>
+    <Text Include="Player1Mode.txt">
+      <Filter>Fichiers de ressources\InfoSceneFile</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="project DUT.rc">
+      <Filter>Fichiers de ressources</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Sounds_Jomard\damage01.flac">
+      <Filter>Fichiers de ressources\sound</Filter>
+    </None>
+    <None Include="Sounds_Jomard\damage02.flac">
+      <Filter>Fichiers de ressources\sound</Filter>
+    </None>
+    <None Include="Sounds_Jomard\die01.flac">
+      <Filter>Fichiers de ressources\sound</Filter>
+    </None>
+    <None Include="Sounds_Jomard\die02.flac">
+      <Filter>Fichiers de ressources\sound</Filter>
+    </None>
+    <None Include="Sounds_Jomard\rifle01.flac">
+      <Filter>Fichiers de ressources\sound</Filter>
+    </None>
+    <None Include="Sounds_Jomard\shotgun01.flac">
+      <Filter>Fichiers de ressources\sound</Filter>
+    </None>
+    <None Include="Sounds_Jomard\shotgun02.flac">
+      <Filter>Fichiers de ressources\sound</Filter>
+    </None>
+    <None Include="Sounds_Jomard\smg01.flac">
+      <Filter>Fichiers de ressources\sound</Filter>
+    </None>
+    <None Include="Sounds_Jomard\smg02.flac">
+      <Filter>Fichiers de ressources\sound</Filter>
+    </None>
   </ItemGroup>
 </Project>

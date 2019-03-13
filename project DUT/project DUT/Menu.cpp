@@ -16,11 +16,11 @@ int changeScene(int * idScene, int newIdscene)
 	return 0;
 }
 
-bool Menu::init(sf::RenderWindow & targetWindow)
+bool Menu::init(sf::RenderWindow & targetWindow, const bool loadAsset)
 {
 	Scene::init(targetWindow);
 	_help = new Button();
-	_help->init(_assetScene, &changeScene, &_idScene, (int)SCENE::TEST);
+	//_help->init(_assetScene, &changeScene, &_idScene, (int)SCENE::TEST);
 	return false;
 }
 

@@ -1,25 +1,90 @@
 #include "AssetLoader.h"
 
-void assetLauncher::loadFromParser(ParserSceneInfo parserScene, const std::string & nameScene)
+void assetLauncher::loadFromParser(ParserSceneInfo parserScene)
 {
-	std::vector<std::string> tmpIdTexture = parserScene.getAllIdsObjectFromBlock("Texture");
-	std::vector<std::string> tmpIdFont = parserScene.getAllIdsObjectFromBlock("Font");
-	//std::vector<std::string> tmpIdTexture = parserScene.getAllIdsObjectFromBlock("Sound");
+	_fillMaps.insert(std::make_pair("Texture", &assetLauncher::fillTexture));
+	_fillMaps.insert(std::make_pair("Font", &assetLauncher::fillFont));
+	_fillMaps.insert(std::make_pair("Audio", &assetLauncher::fillSound));
 
-	for (auto it = tmpIdTexture.begin(); it != tmpIdTexture.end(); it++)
+	arrayInfoParser allAssetBlock = parserScene.getAllBlockFromType("Asset");
+	for (auto it = allAssetBlock.begin(); it != allAssetBlock.end(); it++)
 	{
-		std::string nameTexture = parserScene.getInfo("Texture", (*it), std::string());
-		_allTextureForScene.insert(std::pair<std::string, sf::Texture>((*it), sf::Texture()));
-		if (!_allTextureForScene[(*it)].loadFromFile(nameTexture))
-			std::cout << "failed to load ressource :" + nameTexture << std::endl;
+		std::string nameBlock = it->first;
+		this->call(it->first, it->second);
 	}
-	for (auto it = tmpIdFont.begin(); it != tmpIdFont.end(); it++)
+}
+
+void assetLauncher::draw(sf::RenderWindow & targetWindow)
+{
+	for (auto it = _infoShape.begin(); it != _infoShape.end(); it++)
+		if (it->second.isDisplayed)
+			targetWindow.draw(_allShape[it->second.idObj]);
+}
+
+void assetLauncher::pushCircleShape(const InfoDraw & info)
+{
+	_infoShape.emplace(std::pair<std::string, InfoDraw>(info.idObj, info));
+	_allShape.emplace(std::pair<std::string, sf::CircleShape>(info.idObj, sf::CircleShape()));
+	if (info.idAsset != "")
+		_allShape[info.idObj].setTexture(&_allTextureForScene[info.idAsset]); //maybe it will break need to test
+}
+
+void assetLauncher::popCircleShape(const std::string & idObj)
+{
+	_infoShape.erase(idObj);
+	_allShape.erase(idObj);
+}
+
+void assetLauncher::setCircleShapePos(const std::string & idObj, const sf::Vector2f & nPos)
+{
+	_allShape[idObj].setPosition(nPos);
+}
+
+void assetLauncher::setCircleShapeRect(const std::string &idObj, const sf::Rect<int> &info)
+{
+	_allShape[idObj].setTextureRect(info);
+
+}
+
+void assetLauncher::setCircleShapeRadius(const std::string &idObj, const float nRadius)
+{
+	_allShape[idObj].setRadius(nRadius);
+}
+
+void assetLauncher::setCircleShapeFillColor(const std::string &idObj, const sf::Color & nColor)
+{
+	_allShape[idObj].setFillColor(nColor);
+}
+
+int assetLauncher::fillTexture(std::map<std::string, InfoParser> tmpblock)
+{
+	for (auto it = tmpblock.begin(); it != tmpblock.end(); it++)
 	{
-		std::string nameFont = parserScene.getInfo("Font", (*it), std::string());
-		_allFontForScene.insert(std::pair<std::string, sf::Font>((*it), sf::Font()));
-		if (!_allFontForScene[(*it)].loadFromFile(nameFont))
-			std::cout << "failed to load ressource :" + nameFont << std::endl;
+		_allTextureForScene.insert(std::pair<std::string, sf::Texture>(it->first, sf::Texture()));
+		if (!_allTextureForScene[it->first].loadFromFile(it->second.value))
+			std::cout << "failed to load ressource :" + it->second.value << std::endl;
 	}
-	/*for (auto it = tmpIdTexture.begin(); it != tmpIdTexture.end(); it++)
-		tmpIdTexture.push_back(parserScene.getInfo("Texture", (*it), std::string()));*/
+	return 1;
+}
+
+int assetLauncher::fillFont(std::map<std::string, InfoParser> tmpblock)
+{
+	for (auto it = tmpblock.begin(); it != tmpblock.end(); it++)
+	{
+		_allFontForScene.insert(std::pair<std::string, sf::Font>(it->first, sf::Font()));
+		if (!_allFontForScene[it->first].loadFromFile(it->second.value))
+			std::cout << "failed to load ressource :" + it->second.value << std::endl;
+	}
+	return 1;
+}
+
+int assetLauncher::fillSound(std::map<std::string, InfoParser> tmpblock)
+{
+	for (auto it = tmpblock.begin(); it != tmpblock.end(); it++)
+	{
+		_allSoundForScene.insert(std::pair<std::string, sf::SoundBuffer>(it->first, sf::SoundBuffer()));
+		if (!_allSoundForScene[it->first].loadFromFile(it->second.value))
+			std::cout << "failed to load ressource :" + it->second.value << std::endl;
+	}
+	return 1;
 }
