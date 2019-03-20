@@ -1,0 +1,4 @@
+"Font":{
+  "buttonHello":{"string","hemi head bd it.ttf"}
+}
+!

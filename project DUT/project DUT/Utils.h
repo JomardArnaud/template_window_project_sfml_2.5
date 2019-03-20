@@ -32,9 +32,20 @@ struct InfoCircle
 
 struct InfoDraw
 {
-	std::string idObj;
+	InfoDraw() {
+		idObj = "";
+		idAsset = "";
+		isUsed = false;
+	}
+	InfoDraw(const std::string &nIdObj, const std::string &nIdAsset, const bool nIsUsed) {
+		idObj = nIdObj;
+		idAsset = nIdAsset;
+		isUsed = nIsUsed;
+	}
+	std::string idObj; //first letter is a flag For exemple R/C RPlayer for a rectangleShape and CPlayer for a circ... same for sound/music
+	// Rect/Cirlce | Sound/Music
 	std::string idAsset;
-	bool isDisplayed;
+	bool isUsed;
 };
 
 namespace MyMath

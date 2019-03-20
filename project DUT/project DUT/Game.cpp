@@ -40,9 +40,18 @@ bool Game::init()
 	_timer = sf::seconds(1.f / tmpSetGame.setInfo<int>("gameInfo", "infoScene", "fps"));
 	preloadScene();
 	_currentIdScene = tmpSetGame.setInfo<int>("gameInfo", "infoScene", "scene_at_start");
-	_padId = _inputManager.CreateDevice<gainput::InputDevicePad>();
-	_inputMap.MapFloat(0, _padId, gainput::PadButtonAxis4);
-	_inputMap.MapFloat(1, _padId, gainput::PadButtonAxis5);
+	for (int i = 0; i < PLAYER_ID::maxPlayerCount; i++)
+	{
+		_padId[i] = _inputManager.CreateDevice<gainput::InputDevicePad>();
+	}
+	_currentNbPad = _inputManager.GetDeviceCountByType(gainput::InputDevicePad::DT_PAD);
+	int nbAxisAssigned = 0;
+	for (int i = 0; i < _currentNbPad; i++)
+	{
+		_inputMap.MapFloat(nbAxisAssigned++, _padId[i], gainput::PadButtonAxis4);
+		_inputMap.MapFloat(nbAxisAssigned++, _padId[i], gainput::PadButtonAxis5);
+	}
+
 	return (_game);
 }
 
@@ -70,12 +79,17 @@ bool Game::loop()
 void Game::event(const sf::Event & event)
 {
 	_inputManager.Update();
-	_inputMap.GetFloatDelta(0);
 
 	switch (event.type)
 	{
 	case sf::Event::Closed:
 		_game = false;
+		break;
+	case sf::Event::JoystickConnected:
+		_currentNbPad++;
+		break;
+	case sf::Event::JoystickDisconnected:
+		_currentNbPad--;
 		break;
 	case sf::Event::KeyPressed:
 		if (event.key.code == sf::Keyboard::Escape)
@@ -98,6 +112,11 @@ void Game::event(const sf::Event & event)
 		break;
 	case sf::Event::JoystickMoved:
 		_allScene[_currentIdScene]->setController(event.joystickMove.joystickId, event.joystickMove.axis);
+		if (event.joystickMove.axis == AXE::LT)
+		{
+			_allScene[_currentIdScene]->setController(event.joystickMove.joystickId, AXE::LT, _inputMap.GetFloat(event.joystickMove.joystickId * 2));
+			_allScene[_currentIdScene]->setController(event.joystickMove.joystickId, AXE::RT, _inputMap.GetFloat(event.joystickMove.joystickId * 2 + 1));
+		}
 		break;
 	default:
 		break;

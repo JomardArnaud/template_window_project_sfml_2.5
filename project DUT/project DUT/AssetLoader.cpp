@@ -1,10 +1,10 @@
 #include "AssetLoader.h"
 
-void assetLauncher::loadFromParser(ParserSceneInfo parserScene)
+void AssetLoader::loadFromParser(ParserSceneInfo parserScene)
 {
-	_fillMaps.insert(std::make_pair("Texture", &assetLauncher::fillTexture));
-	_fillMaps.insert(std::make_pair("Font", &assetLauncher::fillFont));
-	_fillMaps.insert(std::make_pair("Audio", &assetLauncher::fillSound));
+	_fillMaps.insert(std::make_pair("Texture", &AssetLoader::fillTexture));
+	_fillMaps.insert(std::make_pair("Font", &AssetLoader::fillFont));
+	_fillMaps.insert(std::make_pair("Audio", &AssetLoader::fillSound));
 
 	arrayInfoParser allAssetBlock = parserScene.getAllBlockFromType("Asset");
 	for (auto it = allAssetBlock.begin(); it != allAssetBlock.end(); it++)
@@ -14,49 +14,92 @@ void assetLauncher::loadFromParser(ParserSceneInfo parserScene)
 	}
 }
 
-void assetLauncher::draw(sf::RenderWindow & targetWindow)
+void AssetLoader::draw(sf::RenderWindow & targetWindow)
 {
 	for (auto it = _infoShape.begin(); it != _infoShape.end(); it++)
-		if (it->second.isDisplayed)
-			targetWindow.draw(_allShape[it->second.idObj]);
+		if (it->second.isUsed)
+			if (it->second.idObj[0] == CIRCLE_FLAG)
+				targetWindow.draw(_allCircleShape[it->second.idObj]);
+			else if (it->second.idObj[0] == RECT_FLAG)
+				targetWindow.draw(_allRectangleShape[it->second.idObj]);
 }
 
-void assetLauncher::pushCircleShape(const InfoDraw & info)
+void AssetLoader::pushShape(const InfoDraw &info)
 {
-	_infoShape.emplace(std::pair<std::string, InfoDraw>(info.idObj, info));
-	_allShape.emplace(std::pair<std::string, sf::CircleShape>(info.idObj, sf::CircleShape()));
-	if (info.idAsset != "")
-		_allShape[info.idObj].setTexture(&_allTextureForScene[info.idAsset]); //maybe it will break need to test
+	_infoShape.emplace(info.idObj, info);
+	if (info.idObj[0] == CIRCLE_FLAG)
+	{
+		_allCircleShape.emplace(info.idObj, sf::CircleShape());
+		if (info.idAsset != "")
+			_allCircleShape[info.idObj].setTexture(&_allTextureForScene[info.idAsset]); //maybe it will break need to test
+	}
+	else if (info.idObj[0] == RECT_FLAG)
+	{
+		_allRectangleShape.emplace(info.idObj, sf::RectangleShape());
+		if (info.idAsset != "")
+			_allRectangleShape[info.idObj].setTexture(&_allTextureForScene[info.idAsset]); //maybe it will break need to test
+
+	}
 }
 
-void assetLauncher::popCircleShape(const std::string & idObj)
+void AssetLoader::popShape(const std::string & idObj)
 {
 	_infoShape.erase(idObj);
-	_allShape.erase(idObj);
+	if (idObj[0] == CIRCLE_FLAG)
+		_allCircleShape.erase(idObj);
+	if (idObj[0] == RECT_FLAG)
+		_allRectangleShape.erase(idObj);
 }
 
-void assetLauncher::setCircleShapePos(const std::string & idObj, const sf::Vector2f & nPos)
+void AssetLoader::setShape(const std::string & idObj, const sf::Vector2f & nPos, const float nRadius, const sf::Color & nColor)
 {
-	_allShape[idObj].setPosition(nPos);
+	_allCircleShape[idObj].setPosition(nPos);
+	_allCircleShape[idObj].setRadius(nRadius);
+	_allCircleShape[idObj].setFillColor(nColor);
 }
 
-void assetLauncher::setCircleShapeRect(const std::string &idObj, const sf::Rect<int> &info)
+void AssetLoader::setShape(const std::string & idObj, const sf::Vector2f & nPos, const sf::Vector2f nSize, const sf::Color & nColor)
 {
-	_allShape[idObj].setTextureRect(info);
-
+	_allRectangleShape[idObj].setPosition(nPos);
+	_allRectangleShape[idObj].setSize(nSize);
+	_allRectangleShape[idObj].setFillColor(nColor);
 }
 
-void assetLauncher::setCircleShapeRadius(const std::string &idObj, const float nRadius)
+void AssetLoader::setShapePos(const std::string & idObj, const sf::Vector2f & nPos)
 {
-	_allShape[idObj].setRadius(nRadius);
+	if (idObj[0] == CIRCLE_FLAG)
+		_allCircleShape[idObj].setPosition(nPos);
+	if (idObj[0] == RECT_FLAG)
+		_allRectangleShape[idObj].setPosition(nPos);
 }
 
-void assetLauncher::setCircleShapeFillColor(const std::string &idObj, const sf::Color & nColor)
+void AssetLoader::setShapeSize(const std::string & idObj, const float nRadius)
 {
-	_allShape[idObj].setFillColor(nColor);
+	_allCircleShape[idObj].setRadius(nRadius);
 }
 
-int assetLauncher::fillTexture(std::map<std::string, InfoParser> tmpblock)
+void AssetLoader::setShapeSize(const std::string & idObj, const sf::Vector2f nSize)
+{
+	_allRectangleShape[idObj].setSize(nSize);
+}
+
+void AssetLoader::setShapeFillColor(const std::string & idObj, const sf::Color & nColor)
+{
+	if (idObj[0] == CIRCLE_FLAG)
+		_allCircleShape[idObj].setFillColor(nColor);
+	if (idObj[0] == RECT_FLAG)
+		_allRectangleShape[idObj].setFillColor(nColor);
+}
+
+void AssetLoader::setTextureRect(const std::string & idObj, const sf::Rect<int>& info)
+{
+	if (idObj[0] == CIRCLE_FLAG)
+		_allCircleShape[idObj].setTextureRect(info);
+	if (idObj[0] == RECT_FLAG)
+		_allRectangleShape[idObj].setTextureRect(info);
+}
+
+int AssetLoader::fillTexture(std::map<std::string, InfoParser> tmpblock)
 {
 	for (auto it = tmpblock.begin(); it != tmpblock.end(); it++)
 	{
@@ -67,7 +110,7 @@ int assetLauncher::fillTexture(std::map<std::string, InfoParser> tmpblock)
 	return 1;
 }
 
-int assetLauncher::fillFont(std::map<std::string, InfoParser> tmpblock)
+int AssetLoader::fillFont(std::map<std::string, InfoParser> tmpblock)
 {
 	for (auto it = tmpblock.begin(); it != tmpblock.end(); it++)
 	{
@@ -78,7 +121,7 @@ int assetLauncher::fillFont(std::map<std::string, InfoParser> tmpblock)
 	return 1;
 }
 
-int assetLauncher::fillSound(std::map<std::string, InfoParser> tmpblock)
+int AssetLoader::fillSound(std::map<std::string, InfoParser> tmpblock)
 {
 	for (auto it = tmpblock.begin(); it != tmpblock.end(); it++)
 	{

@@ -83,7 +83,7 @@ public:
 	Button() {}
 	~Button() {}
 	//min width 1 for sizeLetter 1
-	template <typename T> void init(const assetLauncher & assetScene, const InfoButton &info, int(*func)(T*, T), T*  params, T nValueParams)
+	template <typename T> void init(const AssetLoader & assetScene, const InfoButton &info, int(*func)(T*, T), T*  params, T nValueParams)
 	{
 //		Txt::init(info, assetScene._allFontForScene.at(info.id));
 		_isUsed = 0.f;

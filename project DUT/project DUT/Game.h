@@ -2,6 +2,15 @@
 
 #include "gainput/gainput.h"
 
+enum PLAYER_ID
+{
+	P1,
+	P2,
+	P3,
+	P4,
+	maxPlayerCount
+};
+
 //ALL SCENE INCLUDE
 #include "Player1Mode.h"
 #include "Menu.h"
@@ -24,7 +33,8 @@ private:
   bool _game;
   gainput::InputManager _inputManager;
   gainput::InputMap _inputMap;
-  gainput::DeviceId _padId;
+  gainput::DeviceId _padId[PLAYER_ID::maxPlayerCount];
+  int _currentNbPad;
   sf::RenderWindow _wGame;
   sf::Clock _clock;
   sf::Time _timer;

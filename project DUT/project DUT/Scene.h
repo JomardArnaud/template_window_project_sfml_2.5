@@ -29,8 +29,9 @@ enum AXE
 {
 	LX,
 	LY,
-	LT, //NB: For SFML the two trigger use the same idAxe ( = 2) if value is neg is RT pos is for LT
-	RX = 4,
+	LT,
+	RT,
+	RX,
 	RY,
 	countAxe
 };
@@ -80,7 +81,7 @@ protected:
 	std::vector<std::map<int, bool> > _buttonField;
 	std::vector<std::map<int, float> > _axeField;
 	ParserSceneInfo _parserScene;
-	assetLauncher _assetScene;
+	AssetLoader _assetScene;
 	std::map<std::string, std::string> _infoToNextScene;
 	void setInfoFromPreviousScene(const std::string &stringValue, int *value);
 	void setInfoFromPreviousScene(const std::string &stringValue, float *value);

@@ -1,0 +1,95 @@
+"Asset":{
+	"Font":{
+		"infoFont":{"string","hemi head bd it.ttf"}
+	},
+	"Audio":{
+		"damage1":{"string","sound\damage01.flac"},
+		"damage2":{"string","sound\damage02.flac"},
+		"die1":{"string","sound\die01.flac"},
+		"die2":{"string","sound\die02.flac"},
+		"11":{"string","sound\rifle01.flac"},
+		"12":{"string","sound\rifle01.flac"},
+		"21":{"string","sound\shotgun01.flac"},
+		"22":{"string","sound\shotgun02.flac"},
+		"01":{"string","sound\smg01.flac"},
+		"02":{"string","sound\smg02.flac"}
+	}
+},
+"Setting":{
+	"Song":{
+		"tmpNameSongVolume":{"float","3"}
+	}
+},
+"ValueObject":{
+	 "Player":{
+		"powerDash":{"float","550"},
+		"durationDash":{"float","0.125"},
+		"startingPosition":{"vector2","800,450"},
+		"size":{"float","18"},
+		"velocityLAxis":{"float","0.018"}
+	},
+	"Spawner":{
+		"nbSpawnerAtStart":{"int","4"},
+		"stepSize":{"float","30"},
+		"position1":{"vector2","100,100"},
+		"size1":{"vector2","50,50"},
+		"timerStartingSpawn1":{"float","1"},
+		"nbEnnemiesEachSpawn1":{"int","1"},
+		"timerSpawnWave1":{"float","5"},
+		"position2":{"vector2","1400,250"},
+		"size2":{"vector2","50, 50"},
+		"timerStartingSpawn2":{"float","2"},
+		"nbEnnemiesEachSpawn2":{"int","1"},
+		"timerSpawnWave2":{"float","10"},
+		"position3":{"vector2","100,725"},
+		"size3":{"vector2","50, 50"},
+		"timerStartingSpawn3":{"float","3"},
+		"nbEnnemiesEachSpawn3":{"int","1"},
+		"timerSpawnWave3":{"float","8"},
+		"position4":{"vector2","1400, 650"},
+		"size4":{"vector2","50, 50"},
+		"timerStartingSpawn4":{"float","4"},
+		"nbEnnemiesEachSpawn4":{"int","1"},
+		"timerSpawnWave4":{"float","7"}
+	},
+	"Weapon":{
+		"startingWeapon":{"int","0"},
+		"radiusCursor":{"float","5"},
+		"startingAmmo1":{"float","1150"},
+		"sizeLoader1":{"float","45"},
+		"maxAmmo1":{"float","1300"},
+		"fireRate1":{"float","0.18"},
+		"timingReload1":{"float","0.8f"},
+		"nbsound1":{"int","2"},
+		"startingAmmo2":{"float","175"},
+		"sizeLoader2":{"float","30"},
+		"maxAmmo2":{"float","1200"},
+		"fireRate2":{"float","0.15"},
+		"timingReload2":{"float","1"},
+		"nbsound2":{"int","2"},
+		"startingAmmo3":{"float","140"},
+		"sizeLoader3":{"float","8"},
+		"maxAmmo3":{"float","180"},
+		"fireRate3":{"float","0.8"},
+		"timingReload3":{"float","0.5f"},
+		"nbsound3":{"int","2"}
+	},
+	"Bullet":{
+		"startingRadius1":{"float","25"},
+		"timingFade1":{"float","0.8"},
+		"faddingRate1":{"float","5"},
+		"velocity1":{"float","1200"},
+		"dammage1":{"float","3"},
+		"startingRadius2":{"float","35"},
+		"timingFade2":{"float","1.1"},
+		"faddingRate2":{"float","8"},
+		"velocity2":{"float","1100"},
+		"dammage2":{"float","6"},
+		"startingRadius3":{"float","58"},
+		"timingFade3":{"float","0.2"},
+		"faddingRate3":{"float","50"},
+		"velocity3":{"float","1050"},
+		"dammage3":{"float","10"}
+	}
+}
+!

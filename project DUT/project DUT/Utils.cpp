@@ -47,7 +47,7 @@ namespace MyMath
 
 		return sqrt(dx * dx + dy * dy);
 	}
-
+	
 	const sf::Vector2f centerCircle(const sf::CircleShape &c)
 	{
 		const sf::Vector2f tmpPos(c.getPosition());
